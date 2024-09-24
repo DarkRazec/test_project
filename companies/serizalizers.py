@@ -18,13 +18,6 @@ class CompaniesSerializer(serializers.ModelSerializer):
             CompanyLevelValidator(),
         ]
 
-    def update(self, instance, validated_data):
-
-        if validated_data.get('debt'):
-            del validated_data['debt']
-
-        return super().update(instance, validated_data)
-
     @staticmethod
     def get_level(obj):
         return get_company_level(obj)
@@ -39,3 +32,10 @@ class CompaniesSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError("Factory's supplier field cannot be changed")
 
         return value
+
+
+class CompaniesUpdateSerializer(CompaniesSerializer):
+    class Meta(CompaniesSerializer.Meta):
+        extra_kwargs = {
+            'debt': {'read_only': True},
+        }
