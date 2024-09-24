@@ -21,7 +21,7 @@ class CompaniesAdmin(admin.ModelAdmin):
     @admin.action(description="Clear debt")
     def clear_debt(self, request, queryset):
         """
-        Admin action для очистки задолженности перед поставщиком у выбранных объектов.
+        Admin action for clearing debt.
         """
         updated_count = 0
         for obj in queryset:
